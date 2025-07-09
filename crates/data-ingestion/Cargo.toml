@@ -1,0 +1,25 @@
+[package]
+name = "data-ingestion"
+version = "0.1.0"
+edition = "2021"
+description = "Real-time market data ingestion via WebSocket (Polygon.io)"
+
+[dependencies]
+tokio = { workspace = true }
+tokio-tungstenite = { workspace = true }
+futures = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+chrono = { workspace = true }
+redis = { workspace = true }
+requwest = { workspace = true }
+tracing = { workspace = true }
+anyhow = { workspace = true }
+thiserror = { workspace = true }
+config = { workspace = true }
+uuid = { workspace = true }
+dashmap = { workspace = true }
+
+[dev-dependencies]
+tokio-test = { workspace = true }
+mockall = { workspace = true }
