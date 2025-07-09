@@ -1,0 +1,25 @@
+[package]
+name = "neural-bridge"
+version = "0.1.0"
+edition = "2021"
+description = "PyO3 bridge for NeuralForecast models integration"
+
+[dependencies]
+tokio = { workspace = true }
+pyo3 = { workspace = true }
+numpy = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+chrono = { workspace = true }
+redis = { workspace = true }
+tracing = { workspace = true }
+anyhow = { workspace = true }
+thiserror = { workspace = true }
+config = { workspace = true }
+uuid = { workspace = true }
+dashmap = { workspace = true }
+parking_lot = { workspace = true }
+
+[dev-dependencies]
+tokio-test = { workspace = true }
+mockall = { workspace = true }
