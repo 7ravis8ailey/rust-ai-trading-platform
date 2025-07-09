@@ -1,0 +1,74 @@
+[package]
+name = "rust-ai-trading-platform"
+version = "0.1.0"
+edition = "2021"
+authors = ["Travis Bailey <travisbailey@example.com>"]
+description = "AI-driven neural trading platform with LSTM, N-BEATS, and TFT models"
+license = "MIT"
+readme = "README.md"
+repository = "https://github.com/7ravis8ailey/rust-ai-trading-platform"
+
+[workspace]
+members = [
+    "crates/data-ingestion",
+    "crates/neural-engine", 
+    "crates/trading-engine",
+    "crates/risk-management",
+    "crates/api-gateway",
+    "crates/common"
+]
+
+[workspace.dependencies]
+# Async Runtime
+tokio = { version = "1.35", features = ["full"] }
+tokio-util = "0.7"
+futures = "0.3"
+
+# Networking & APIs
+reqwest = { version = "0.11", features = ["json"] }
+tungstenite = "0.21"
+tokio-tungstenite = "0.21"
+axum = "0.7"
+tower = "0.4"
+
+# Data Processing
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+chrono = { version = "0.4", features = ["serde"] }
+csv = "1.3"
+
+# Database
+sqlx = { version = "0.7", features = ["runtime-tokio-rustls", "postgres", "chrono", "uuid"] }
+redis = { version = "0.24", features = ["tokio-comp"] }
+
+# Neural Networks & ML
+candle-core = "0.3"
+candle-nn = "0.3"
+candle-transformers = "0.3"
+pyo3 = { version = "0.20", features = ["auto-initialize"] }
+numpy = "0.20"
+
+# Monitoring & Logging
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+metrics = "0.22"
+metrics-exporter-prometheus = "0.13"
+
+# Error Handling
+anyhow = "1.0"
+thiserror = "1.0"
+
+# Configuration
+config = "0.14"
+toml = "0.8"
+
+# Testing
+tokio-test = "0.4"
+mockall = "0.12"
+
+[dependencies]
+# Re-export workspace dependencies
+tokio = { workspace = true }
+anyhow = { workspace = true }
+tracing = { workspace = true }
+tracing-subscriber = { workspace = true }
