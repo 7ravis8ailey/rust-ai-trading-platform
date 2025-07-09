@@ -3,7 +3,7 @@ name = "rust-ai-trading-platform"
 version = "0.1.0"
 edition = "2021"
 authors = ["Travis Bailey <travisbailey@example.com>"]
-description = "AI-driven neural trading platform with LSTM, N-BEATS, and TFT models"
+description = "AI Neural Trading Platform - Hybrid Rust+Python implementation with sub-10ms inference"
 license = "MIT"
 readme = "README.md"
 repository = "https://github.com/7ravis8ailey/rust-ai-trading-platform"
@@ -11,11 +11,11 @@ repository = "https://github.com/7ravis8ailey/rust-ai-trading-platform"
 [workspace]
 members = [
     "crates/data-ingestion",
-    "crates/neural-engine", 
+    "crates/neural-bridge", 
     "crates/trading-engine",
-    "crates/risk-management",
-    "crates/api-gateway",
-    "crates/common"
+    "crates/strategy-core",
+    "crates/storage-layer",
+    "crates/mcp-integration"
 ]
 
 [workspace.dependencies]
@@ -24,31 +24,39 @@ tokio = { version = "1.35", features = ["full"] }
 tokio-util = "0.7"
 futures = "0.3"
 
-# Networking & APIs
+# Networking & WebSocket
 reqwest = { version = "0.11", features = ["json"] }
 tungstenite = "0.21"
 tokio-tungstenite = "0.21"
 axum = "0.7"
 tower = "0.4"
 
-# Data Processing
+# Data Processing & Serialization
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
 chrono = { version = "0.4", features = ["serde"] }
 csv = "1.3"
+uuid = { version = "1.6", features = ["v4", "serde"] }
 
-# Database
+# Database & Storage
 sqlx = { version = "0.7", features = ["runtime-tokio-rustls", "postgres", "chrono", "uuid"] }
 redis = { version = "0.24", features = ["tokio-comp"] }
 
-# Neural Networks & ML
-candle-core = "0.3"
-candle-nn = "0.3"
-candle-transformers = "0.3"
+# Neural Networks & Python Integration
 pyo3 = { version = "0.20", features = ["auto-initialize"] }
 numpy = "0.20"
+candle-core = "0.3"
+candle-nn = "0.3"
 
-# Monitoring & Logging
+# Trading & Market Data APIs
+alpaca = "0.7"
+polygon = "0.2"
+
+# MCP Protocol
+mcp-client = "0.1"
+serde_jsonrpc = "0.1"
+
+# Performance & Monitoring
 tracing = "0.1"
 tracing-subscriber = { version = "0.3", features = ["env-filter"] }
 metrics = "0.22"
@@ -61,14 +69,30 @@ thiserror = "1.0"
 # Configuration
 config = "0.14"
 toml = "0.8"
+clap = { version = "4.4", features = ["derive"] }
+
+# Utilities
+dashmap = "5.5"
+parking_lot = "0.12"
+crossbeam = "0.8"
 
 # Testing
 tokio-test = "0.4"
 mockall = "0.12"
 
 [dependencies]
-# Re-export workspace dependencies
+# Main binary dependencies
 tokio = { workspace = true }
 anyhow = { workspace = true }
 tracing = { workspace = true }
 tracing-subscriber = { workspace = true }
+config = { workspace = true }
+clap = { workspace = true }
+
+# Workspace crates
+data-ingestion = { path = "crates/data-ingestion" }
+neural-bridge = { path = "crates/neural-bridge" }
+trading-engine = { path = "crates/trading-engine" }
+strategy-core = { path = "crates/strategy-core" }
+storage-layer = { path = "crates/storage-layer" }
+mcp-integration = { path = "crates/mcp-integration" }
